@@ -1,5 +1,7 @@
 package com.example.a4thfacebookassignment.adapter;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,25 +16,35 @@ import com.example.a4thfacebookassignment.model.User;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyHolder> {
+    Context mContext;
     List<User> userList;
 
-    public UserAdapter(List<User> userList) {
+    public UserAdapter(List<User> userList)
+    {
+        this.mContext= mContext;
         this.userList = userList;
     }
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
-    }
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.show_user, parent, false);
+        MyHolder myHolder = new MyHolder(view);
 
+        return myHolder;
+    }
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+        final User user = userList.get(position);
+
+        holder.textView.setText(user.getFirst_name() + " " + user.getLast_name());
+        holder.imageView.setImageResource(R.drawable.ic_profile_24dp);
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return userList.size();
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
